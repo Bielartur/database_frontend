@@ -14,6 +14,7 @@ import { X } from "lucide-react";
 import { ToastContainer } from "react-toastify";
 import { useState } from "react";
 import { GameCard } from "../../components/GameCard";
+import api from "../../utils/api";
 
 export function GameSearch() {
   const [id, setId] = useState("");
@@ -24,9 +25,7 @@ export function GameSearch() {
 
     try {
       console.log("Buscando o jogo com ID:", id);
-      const response = await axios.get(
-        `http://127.0.0.1:8000/zodb/jogos/${id}`
-      );
+      const response = await api.get(`/zodb/jogos/${id}`);
       setGame(response.data);
     } catch {}
   }
