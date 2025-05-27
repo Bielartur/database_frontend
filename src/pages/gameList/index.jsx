@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { StyledLink } from "../../components/layout/styled";
 import { GameCard } from "../../components/GameCard";
+import api from "../../utils/api";
 
 export function GameList() {
   const [games, setGames] = useState([]);
@@ -12,8 +13,14 @@ export function GameList() {
   //Função para pegar a lista de Games do back
   async function renderGames() {
     try {
-      console.log("Buscando a lista de games...");
-      const response = await axios.get("http://127.0.0.1:8000/zodb/jogos/");
+      const token = localStorage.getItem("token");
+      const response = await axios.get("http://127.0.0.1:8000/zodb/jogos", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+      // Aqui você pode setar o estado, por exemplo:
       setGames(response.data);
     } catch (err) {
       console.log("Ocorreu um erro: ", err);

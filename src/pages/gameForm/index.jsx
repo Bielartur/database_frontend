@@ -12,6 +12,7 @@ import {
 } from "./styled";
 import { toast, ToastContainer } from "react-toastify";
 import axios from "axios";
+import api from "../../utils/api";
 
 export function GameForm() {
   const [formData, setFormData] = useState({
@@ -29,7 +30,7 @@ export function GameForm() {
     try {
       console.log("Criando o jogo...");
       // Aqui vai ficar a parte da integração
-      await axios.post("http://127.0.0.1:8000/zodb/jogos/", {
+      await api.post("/zodb/jogos/", {
         titulo: formData.titulo,
         descricao: formData.descricao,
         ano: formData.ano,
@@ -67,14 +68,6 @@ export function GameForm() {
         <TitleContainer>
           <Title>Adicionar um Game:</Title>
         </TitleContainer>
-
-        <Label>ID:</Label>
-        <Input
-          name="id"
-          placeholder="ID"
-          value={formData.id}
-          onChange={handleChange}
-        />
 
         <Label>Título:</Label>
         <Input
